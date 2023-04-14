@@ -6,7 +6,6 @@ using namespace libsnark;
 using namespace std;
 int main()
 {
-    cin >> public_value;
     // 构造面包板
     protoboard<FieldT> pb = build_protoboard(NULL);
     const r1cs_constraint_system<FieldT> constraint_system = pb.get_constraint_system();

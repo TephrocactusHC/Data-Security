@@ -1,5 +1,5 @@
 #include <libsnark/common/default_types/r1cs_gg_ppzksnark_pp.hpp>
-#include <libsnark/zk_proof_systems/ppzksnark/r1cs_gg_ppzksnark/r1cs_gg_ppzksnark.hpp >
+#include <libsnark/zk_proof_systems/ppzksnark/r1cs_gg_ppzksnark/r1cs_gg_ppzksnark.hpp>
 #include <fstream>
 #include <cmath>
 #include "common.hpp"
@@ -8,11 +8,12 @@ using namespace std;
 int main()
 {
     // 为私密输入提供具体数值
-    double t = (5-out)/2.;
-    t = pow(-t+sqrt(t*t+1/27.),1/3.)+pow(-t-sqrt(t*t+1/27.),1/3.)
-    int x = round(t);
+    double t = (5-primary_input)/2.;
+    double delta = sqrt(t*t+1/27.);
+    double res = pow(-t+delta,1/3.)-pow(t+delta,1/3.);
+    int x = round(res);
     int secret[5];
-    secret[0] = out;
+    secret[0] = primary_input;
     secret[1] = x;
     secret[2] = x*x;
     secret[3] = x*x*x;
@@ -35,5 +36,7 @@ int main()
     fstream pr("proof.raw", ios_base::out);
     pr << proof;
     pr.close();
+    cout << pb.primary_input() << endl;
+    cout << pb.auxiliary_input() << endl;
     return 0;
 }

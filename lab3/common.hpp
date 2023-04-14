@@ -4,7 +4,7 @@
 #include <libsnark/gadgetlib1/pb_variable.hpp>
 using namespace libsnark;
 using namespace std;
-int public_value;
+constexpr auto primary_input = 73;
 // 定义使用的有限域
 typedef libff::Fr<default_r1cs_gg_ppzksnark_pp> FieldT;
 // 定义创建面包板的函数
@@ -29,7 +29,7 @@ protoboard<FieldT> build_protoboard(int *secret)
     // 定义公有的变量的数量，set_input_sizes(n)用来声明与 protoboard 连接的 public 变量的个数 n。在这里 n = 1，表明与 pb 连接的前 n = 1 个变量是 public 的，其余都是 private 的。因此，要将 public 的变量先与 pb 连接（前面 out 是公开的）。
     pb.set_input_sizes(1);
     // 为公有变量赋值
-    pb.val(out) = public_value;
+    pb.val(out) = primary_input;
     // 至此，所有变量都已经顺利与 protoboard 相连，下面需要确定的是这些变量间的约束关系。
 
     // Add R1CS constraints to protoboard
